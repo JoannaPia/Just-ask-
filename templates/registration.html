@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="container">
+    <br>
+        <br>
+        <div class="row">
+            <div class="col">
+            </div>
+                <div class="col-4 align-items-center justify-content-around">
+             <form action="{{ url_for('register') }}" style="text-align: center" method="POST">
+                  <h1 class="h3 mb-3 fw-normal" style="text-align: center">Registration</h1>
+                 <label for="name" class="visually-hidden">Your name</label>
+                 <input id="name" type="text" class="form-control" placeholder="Your name" name ="name" required autofocus>
+
+                 <label for="surname" class="visually-hidden">Surname</label>
+                 <input id="surname" class="form-control" type="text" placeholder="Your surname" name ="surname">
+
+                 <label for="login" class="visually-hidden">Login</label>
+                 <input id="login" class="form-control" type="email" placeholder="Login" name ="login">
+
+                 <label for="password" class="visually-hidden">Password</label>
+                 <input id="password" class="form-control" type="password" placeholder="Password" name ="password">
+                 <p></p>
+                <button style="text-align: center" class="btn btn-outline-primary" type="submit">Register</button>
+                 <p></p>
+             </form>
+                </div>
+                    <div class="col">
+                    </div>
+                 <div class="row" style="position: fixed; left:20px; bottom: 5px " class="p-3 mb-2 bg-light text-dark">
+                        <div class="col-6" class="p-3 mb-2 bg-light text-dark">
+                            <p>&copy; Just ask! 2021 &middot; <a >Creators J. Piasecka, W. Dziadoń, A. Kuza</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+                        </div>
+                        <div class="col-6">
+                            <p class="float-end" style="text-align: right"><a href="#">Back to top</a><p>
+                        </div>
+                </div>
+                </div>
+            </div>
+
+    <p></p>
+{% endblock %}

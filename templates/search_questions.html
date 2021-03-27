@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block body %}
+{% if questions != [] %}
+<br>
+<a href="{{ url_for("add_question") }}"><button type="submit"  class="btn btn-outline-primary">Add new question</button></a>
+<br><br>
+    We hope you will find what are you looking:
+<br><br>
+     <table class="table table-hover" class="p-3 mb-2 bg-white text-dark ">
+        <thead>
+            <tr>
+                {% for header in headers %}
+                {% if header == "submission_time" or header == "view_number"
+                        or header == "vote_number" or header == "title" or header == "message"%}
+                        <th>
+                            {{ headers_print[header] }}
+                        </th>
+                {% endif %}
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in questions %}
+                <tr>
+                    {%  for header in headers %}
+                        {% if header == "submission_time" or header == "view_number"
+                            or header == "vote_number" or header == "title" or header == "message" %}
+                            <td>
+                                {% if header == "title" %}
+                                        <a href="{{ url_for("display_question", question_id=question["id"]) }}">
+                                            {% for text in re.split('[ ]', question[header]) %}
+                                                {% if search_phrase.lower() in text.lower()  %}
+                                                    <mark class="badge bg-primary text-wrap" style="width: 6rem;">{{text}}</mark>
+                                                {% else %}
+                                                    {{ text }}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </a>
+                                {% elif  header == "message" %}
+                                        {% for text in re.split('[ ]', question[header]) %}
+                                                {% if search_phrase.lower() in text.lower()  %}
+                                                    <mark class="badge bg-primary text-wrap" style="width: 6rem;">{{text}}</mark>
+                                                {% else %}
+                                                    {{ text }}
+                                                {% endif %}
+                                        {% endfor %}
+                                {%  else %}
+                                    {{ question[header] }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% for answer in answers %}
+                    <tr>
+                        {%  if answer["question_id"] == question["id"] and search_phrase in answer["message"]%}
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Answer message</td>
+                                <td>
+                                    {% for text in re.split('[ ]', answer["message"]) %}
+                                                {% if search_phrase.lower() in text.lower()  %}
+                                                    <mark class="badge bg-primary text-wrap" style="width: 6rem;">{{text}}</mark>
+                                                {% else %}
+                                                     {{ text }}
+                                                {% endif %}
+                                    {% endfor %}
+                                </td>
+                        {%  endif %}
+                    </tr>
+                {%  endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    There are no questions or answers containing the given phrase
+    <br><br>
+{% endif %}
+    <br>
+        <a href="{{ url_for("list") }}"><button  class="btn btn-outline-primary">Back to questions</button></a>
+    <br><br>
+    <p></p>
+
+{% endblock %}

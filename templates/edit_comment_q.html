@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container">
+<div class="row align-items-center">
+<div class="col">
+
+</div>
+     <div class="col-6" class="d-flex justify-content-center">
+        <p></p>
+        <h1 style="text-align: center" class="border border-primary"><span color="black">Update comment</span></h1>
+         <div class="form-floating" >
+         <form action="{{ url_for('save_edit_comment_q', comment_q_id=comment_q['id'], question_id=question_id) }}" style="text-align: center" method="POST">
+            <label for="message" class="input-group-text">Leave your update</label>
+            <textarea  class="form-control"  name="message" id="message" rows="4" cols="50" minlength="5" maxlength="500">{{ comment_q['message'] }}</textarea>
+            <br>
+            <button class="btn btn-outline-primary" type="submit" value="Submit">Save update comment</button>
+         </form>
+         </div>
+            <br>
+             <div class="row">
+                 <a href="{{ url_for("list") }}" style="text-align: center"><button class="btn btn-outline-primary">Back</button></a>
+             </div>
+             <br>
+         </div>
+
+    <div class="col">
+
+    </div>
+
+ <div class="row" style="position: fixed; left:20px; bottom: 5px " class="p-3 mb-2 bg-light text-dark">
+    <div class="col-6" class="p-3 mb-2 bg-light text-dark">
+        <p>&copy; Just ask! 2021 &middot; <a >Creators J. Piasecka, W. Dziadoń, A. Kuza</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </div>
+    <div class="col-6">
+        <p class="float-end" style="text-align: right"><a href="#">Back to top</a><p>
+    </div>
+</div>
+
+  </div>
+{% endblock %}

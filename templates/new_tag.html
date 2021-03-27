@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container">
+<div class="row align-items-center">
+    <div class="col">
+
+    </div>
+ <div class="col-6" class="d-flex justify-content-center">
+ <p></p>
+<h1  style="text-align: center" class="border border-primary"><span color="black" >Create your tags</span></h1>
+<table class="table table-hover" class="p-3 mb-2 bg-white text-dark ">
+    <thead>
+        <tr>
+            {% for header in headers %}
+                {% if header == "submission_time" or header == "view_number"
+                    or header == "vote_number" or header == "title" %}
+                    <th>
+                        {{ headers_print[header] }}
+                    </th>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {%  for header in headers %}
+                {% if header == "submission_time" or header == "view_number"
+                or header == "vote_number" or header == "title" %}
+                    <td>
+                        {% if header == "title" %}
+                            <a href="{{ url_for("display_question", question_id=question["id"]) }}">{{ question[header] }}</a>
+                        {%  else %}
+                            {{ question[header] }}
+                        {% endif %}
+                    </td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
+
+<textarea color="black"  name="tags" id="tags" minlength="5" maxlength="50">
+    {% for tag in tags_name %}
+        {{ tag["name"] }}
+    {% endfor %}
+</textarea>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <form action="{{ url_for("add_tag", question_id=question["id"]) }}">
+       <label class="input-group-text" for="tag">Options</label>
+  </div>
+      <select class="form-select" aria-label="Default select example" class="custom-select" name="tag" id="tag">
+      <option  selected>TAGS</option>
+          {% for tag in tags_list %}
+                <option value="{{ tag['name'] }}">{{ tag["name"] }}</option>
+            {%  endfor %}
+        </select>
+    <p></p>
+<div class="row">
+    <button class="btn btn-outline-primary" type="submit" id="button-addon2">Share tag</button>
+</div>
+</div>
+    </form>
+<div>
+    If You want to create new tag please write it below:
+    <form style="text-align: center" action="{{ url_for('add_new_tag', question_id=question["id"]) }}" method="GET">
+        <input class="form-control" name="new_tag" id="new_tag" placeholder="Create new tag">
+    <br>
+        <button type="submit" class="btn btn-outline-primary">Remember your tags</button>
+    </form>
+</div>
+   </div>
+    <div class="col">
+
+    </div>
+
+ <div class="row" style="position: fixed; left:20px; bottom: 5px " class="p-3 mb-2 bg-light text-dark">
+    <div class="col-6" class="p-3 mb-2 bg-light text-dark">
+        <p>&copy; Just ask! 2021 &middot; <a >Creators J. Piasecka, W. Dziadoń, A. Kuza</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </div>
+    <div class="col-6">
+        <p class="float-end" style="text-align: right"><a href="#">Back to top</a><p>
+    </div>
+</div>
+
+  </div>
+{% endblock %}
